@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import {createContext, useState, useMemo} from 'react';
+import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar from '@mui/material/AppBar';
@@ -61,21 +61,47 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft(props) {
-  const theme = useTheme();
+  const ColorModeContext = createContext({ toggleColorMode: () => { } });
 
-  const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
+  // default mode
+  const [mode, setMode] = useState('dark');
+  let mode_trick = 'dark'
 
-  const [mode, setMode] = React.useState('dark');
-  const colorMode = React.useMemo(
+  async function GetMode() {
+    let get_mode = await localStorage.getItem("mode");
+    // console.log(`get_mode = ${get_mode}`)
+
+    if (get_mode === undefined || get_mode === null) {
+      setMode('dark')
+      mode_trick = 'dark'
+    } else {
+      setMode(get_mode)
+      mode_trick = get_mode
+    }
+  }
+  GetMode()
+
+  // console.log(`mode_trick = ${mode_trick}`)
+
+  const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
         setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+
+        if (mode_trick === 'dark') {
+          mode_trick = 'light'
+        } else {
+          mode_trick = 'dark'
+        }
+        // console.log(`mode = ${mode}`)
+        // console.log(`mode_trick = ${mode_trick}`)
+        localStorage.setItem("mode", mode_trick);
       },
     }),
     [],
   );
 
-  const my_theme = React.useMemo(
+  let my_theme = useMemo(
     () =>
       createTheme({
         palette: {
@@ -105,7 +131,7 @@ export default function PersistentDrawerLeft(props) {
             <DrawerHeader />
 
             <CssBaseline />
-            <Container>
+            <Container >
               {props.children}
             </Container>
 
