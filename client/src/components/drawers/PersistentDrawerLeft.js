@@ -1,4 +1,4 @@
-import {createContext, useState, useMemo} from 'react';
+import { createContext, useState, useMemo } from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -117,21 +117,23 @@ export default function PersistentDrawerLeft(props) {
         <Box sx={{ display: 'flex' }}>
           <CssBaseline />
           <AppBar position="fixed" >
-            <Toolbar className='_toolbar'>
-              <Typography variant="h6" noWrap component="div">
-                Coin Change Greedy
-              </Typography>
+            <Container>
+              <Toolbar className='_toolbar'>
+                <Typography variant="h6" noWrap component="div">
+                  Coin Change Greedy
+                </Typography>
 
-              <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
-                {mode === 'dark' ? <ModeNightIcon /> : <LightModeIcon />}
-              </IconButton>
-            </Toolbar>
+                <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
+                  {mode === 'dark' ? <ModeNightIcon /> : <LightModeIcon />}
+                </IconButton>
+              </Toolbar>
+            </Container>
           </AppBar>
           <Main className='_main'>
             <DrawerHeader />
 
             <CssBaseline />
-            <Container >
+            <Container className='container_content'>
               {props.children}
             </Container>
 
