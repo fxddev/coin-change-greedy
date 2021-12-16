@@ -3,6 +3,6 @@ const appController = require('../controllers/app');
 
 const router = express.Router();
 
-router.get("/coin-change", appController.coinChange);
+router.post("/coin-change", appController.coinChange);
 
 module.exports = router;

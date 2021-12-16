@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { useButton } from '@mui/base/ButtonUnstyled';
 import { styled } from '@mui/system';
+import axios from 'axios'
 
 import '../assets/css/Main.css'
 
@@ -77,24 +78,32 @@ export default function Main() {
   }
 
   function CoinChangeHandle() {
-    console.log('coinAwal')
-    console.log(coinAwal)
-    console.log('coinKandidat')
-    console.log(coinKandidat)
+    // console.log('coinAwal')
+    // console.log(coinAwal)
+    // console.log('coinKandidat')
+    // console.log(coinKandidat)    
 
-    const array_string = coinKandidat.split(/[ ,]+/);
-    console.log('array_string')
-    // console.log(array_string)
-    // console.log(array_string.length)
+    const url = 'https://8000-red-kingfisher-lubl4cjs.ws-us23.gitpod.io/coin-change'
 
-    let array_int = []
-    for (let index = 0; index < array_string.length; index++) {
+    const params = new URLSearchParams()
+    params.append('coin_awal', coinAwal)
+    params.append('coin_kandidat', coinKandidat)
 
-      // console.log(array_string[index])
-      array_int.push(parseInt(array_string[index]))
-
+    const config = {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     }
-    // console.log(array_int) 
+
+    axios.post(url, params, config)
+      .then((result) => {
+        // Do somthing
+        console.log(result)
+      })
+      .catch((err) => {
+        // Do somthing
+        console.log(err)
+      })
 
   }
 
@@ -199,3 +208,6 @@ export default function Main() {
   );
 }
 
+// axios post using x-www-form-urlencoded{
+//   https://gist.github.com/akexorcist/ea93ee47d39cf94e77802bc39c46589b
+// }
