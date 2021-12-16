@@ -98,7 +98,8 @@ export default function Main() {
     axios.post(url, params, config)
       .then((result) => {
         // Do somthing
-        console.log(result)
+        // console.log(result)
+        console.log(result.data)
       })
       .catch((err) => {
         // Do somthing
@@ -147,7 +148,7 @@ export default function Main() {
 
         <div className='side_right'>
           <Paper elevation={6} className='_paper'>
-            lorem ipsummmmmm
+            <h2>Output</h2>
           </Paper>
         </div>
       </Box>
