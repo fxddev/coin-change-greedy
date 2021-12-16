@@ -70,6 +70,10 @@ exports.coinChange = async (req, res) => {
 				});
 			} else {
 				console.log(" Full change are not possible");
+
+				res.status(200).send({
+					message: `Masukkan nilai coin yang tepat`,
+				});
 			}
 		}
 	}

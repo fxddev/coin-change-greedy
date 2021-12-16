@@ -8,12 +8,20 @@
     display: flex;
     gap: 20px;
     flex-direction: column;
+    flex: 1;
 }
 
 .box_content .side_left ._form{ 
     display: flex;
     gap: 20px;
     flex-direction: column;
+}
+
+.box_content .side_right{ 
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    flex: 3;
 }
 
 .box_content div ._paper{

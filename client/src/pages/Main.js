@@ -72,9 +72,57 @@ export default function Main() {
 
   const [coinAwal, setCoinAwal] = React.useState();
   const [coinKandidat, setCoinKandidat] = React.useState();
+  const [msgCoinKandidat, setMsgCoinKandidat] = React.useState('');
+  const [statusMsgCoinKandidatAman, setStatusMsgCoinKandidatAman] = React.useState(true);
 
   function handleCoinKandidat(e) {
     setCoinKandidat(e.target.value)
+    console.log('isi koin kanddidat saat ini adlh')
+    console.log(e.target.value)
+
+    let coin_kandidat = e.target.value
+    let array_string = coin_kandidat.split(/[ ,]+/);
+    console.log('array_string')
+    console.log(array_string)
+    // console.log(array_string.length)
+
+    let array_int = []
+    let array_salah = []
+    for (let index = 0; index < array_string.length; index++) {
+
+      console.log('array_string[index]')
+      console.log(array_string[index])
+
+      let convert_to_int = parseInt(array_string[index])
+      if (array_string[index]) {
+        if (isNaN(convert_to_int)) {
+          // console.log(`${array_string[index]} bukan angka`)
+
+          array_salah.push(array_string[index])
+          setMsgCoinKandidat(`${array_string[index]} bukan angka`)
+          setStatusMsgCoinKandidatAman(false)
+
+          console.log(`array_salah.length = ${array_salah.length}`)
+          if (array_salah.length > 0) {
+            console.log('masih ada selain angka')
+          }
+        } else {
+          array_int.push(convert_to_int)
+
+          console.log(`array_salah.length = ${array_salah.length}`)
+          if (array_salah.length > 0) {
+            console.log('masih ada selain angka')
+          }
+          // for (let j = 0; j < array_salah.length; j++) {
+          //   console.log('array_string[index]')
+          //   console.log(array_string[index])
+          // }
+          // setStatusMsgCoinKandidatAman(true)
+        }
+      }
+
+    }
+    console.log(array_int)
   }
 
   function CoinChangeHandle() {
@@ -117,24 +165,25 @@ export default function Main() {
             <div className='_form'>
               <TextField
                 id="outlined-number"
-                label="Coin Awal"
+                label="Uang Yang ingin Ditukar"
                 type="number"
                 InputLabelProps={{
                   shrink: true,
                 }}
+                placeholder="e.g. 7"
                 value={coinAwal}
                 onChange={e => setCoinAwal(e.target.value)}
               />
               <TextField
                 id="outlined-helperText"
                 label="Kandidat Coin"
-                helperText="Some important text"
-                placeholder="e.g. 2 4 6 8 10"
+                helperText={msgCoinKandidat}
+                placeholder="e.g. 5 4 3 1"
                 value={coinKandidat}
                 onChange={handleCoinKandidat}
               />
 
-              {coinAwal && coinKandidat ?
+              {coinAwal && coinKandidat && statusMsgCoinKandidatAman ?
                 <CustomButton onClick={CoinChangeHandle}>Solve</CustomButton>
                 :
                 <CustomButton disabled>Solve</CustomButton>

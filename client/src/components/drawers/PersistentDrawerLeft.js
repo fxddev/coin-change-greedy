@@ -124,7 +124,7 @@ export default function PersistentDrawerLeft(props) {
                 </Typography>
 
                 <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
-                  {mode === 'dark' ? <ModeNightIcon /> : <LightModeIcon />}
+                  {mode === 'dark' ? <LightModeIcon /> : <ModeNightIcon />}
                 </IconButton>
               </Toolbar>
             </Container>
