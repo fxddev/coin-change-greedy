@@ -8,8 +8,8 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Container from '@mui/material/Container';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import ModeNightIcon from '@mui/icons-material/ModeNight';
 
 import '../../assets/css/PersistentDrawerLeft.css'
 
@@ -65,7 +65,7 @@ export default function PersistentDrawerLeft(props) {
 
   const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
 
-  const [mode, setMode] = React.useState('light');
+  const [mode, setMode] = React.useState('dark');
   const colorMode = React.useMemo(
     () => ({
       toggleColorMode: () => {
@@ -91,14 +91,13 @@ export default function PersistentDrawerLeft(props) {
         <Box sx={{ display: 'flex' }}>
           <CssBaseline />
           <AppBar position="fixed" >
-            <Toolbar>
+            <Toolbar className='_toolbar'>
               <Typography variant="h6" noWrap component="div">
                 Coin Change Greedy
               </Typography>
 
-              {theme.palette.mode} mode
               <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
-                {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+                {mode === 'dark' ? <ModeNightIcon /> : <LightModeIcon />}
               </IconButton>
             </Toolbar>
           </AppBar>
@@ -117,3 +116,6 @@ export default function PersistentDrawerLeft(props) {
   );
 }
 
+// dark mode {
+//   https://mui.com/customization/dark-mode/ (Toggling color mode)
+// }
