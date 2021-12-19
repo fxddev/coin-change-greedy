@@ -81,7 +81,8 @@ export default function Main() {
     console.log(e.target.value)
 
     let coin_kandidat = e.target.value
-    let array_string = coin_kandidat.split(/[ ,]+/);
+    let array_string = []
+    array_string = coin_kandidat.split(/[ ,]+/);
     console.log('array_string')
     console.log(array_string)
     // console.log(array_string.length)
@@ -101,18 +102,24 @@ export default function Main() {
           array_salah.push(array_string[index])
           setMsgCoinKandidat(`${array_string[index]} bukan angka`)
           setStatusMsgCoinKandidatAman(false)
+          break;
 
-          console.log(`array_salah.length = ${array_salah.length}`)
-          if (array_salah.length > 0) {
-            console.log('masih ada selain angka')
-          }
+          // console.log(`array_salah.length = ${array_salah.length}`)
+          // if (array_salah.length > 0) {
+          console.log('masih ada selain angka')
+          // }
         } else {
           array_int.push(convert_to_int)
 
-          console.log(`array_salah.length = ${array_salah.length}`)
-          if (array_salah.length > 0) {
-            console.log('masih ada selain angka')
-          }
+          setMsgCoinKandidat('')
+          setStatusMsgCoinKandidatAman(true)
+
+          // console.log(`array_salah.length = ${array_salah.length}`)
+          // if (array_salah.length > 0) {
+          //   console.log('masih ada selain angka')
+          // }
+
+
           // for (let j = 0; j < array_salah.length; j++) {
           //   console.log('array_string[index]')
           //   console.log(array_string[index])
@@ -156,37 +163,54 @@ export default function Main() {
 
   }
 
+  function contohSoalHandle() {
+
+  }
+
   return (
     <>
       <Box className='box_content'>
         <div className='side_left'>
           <Paper elevation={6} className='_paper'>
-            <h2>Input</h2>
+            <h3>Gaskeun slurr!</h3>
             <div className='_form'>
               <TextField
                 id="outlined-number"
-                label="Uang Yang ingin Ditukar"
+                label="Uang Yang ingin Ditukar?"
                 type="number"
                 InputLabelProps={{
                   shrink: true,
                 }}
-                placeholder="e.g. 7"
+                placeholder="misal 7"
                 value={coinAwal}
                 onChange={e => setCoinAwal(e.target.value)}
               />
-              <TextField
-                id="outlined-helperText"
-                label="Kandidat Coin"
-                helperText={msgCoinKandidat}
-                placeholder="e.g. 5 4 3 1"
-                value={coinKandidat}
-                onChange={handleCoinKandidat}
-              />
+              {statusMsgCoinKandidatAman ?
+                <TextField
+                  id="outlined-helperText"
+                  label="Kandidat Coin?"
+                  helperText={msgCoinKandidat}
+                  placeholder="misal 5 4 3 1"
+                  value={coinKandidat}
+                  onChange={handleCoinKandidat}
+                />
+                :
+                <TextField
+                  error
+                  id="outlined-helperText"
+                  label="Kandidat Coin?"
+                  helperText={msgCoinKandidat}
+                  placeholder="e.g. 5 4 3 1"
+                  value={coinKandidat}
+                  onChange={handleCoinKandidat}
+                />
+              }
+
 
               {coinAwal && coinKandidat && statusMsgCoinKandidatAman ?
-                <CustomButton onClick={CoinChangeHandle}>Solve</CustomButton>
+                <CustomButton onClick={CoinChangeHandle}>Gasss</CustomButton>
                 :
-                <CustomButton disabled>Solve</CustomButton>
+                <CustomButton disabled>Gasss</CustomButton>
               }
             </div>
           </Paper>
@@ -197,7 +221,13 @@ export default function Main() {
 
         <div className='side_right'>
           <Paper elevation={6} className='_paper'>
-            <h2>Output</h2>
+            <h3>Nemu soal kek gini?</h3>
+            <div classNane='contoh_soal'>
+              <p>Terdapat lembaran uang sebesar 100.000, 50.000, 10.000, 5000, 2500, akan ditukar dengan
+                uang yang jumlahnya 150.000. Jika menggunakan algoritnna Greedy maka banyaknya
+                lembaran yang harus ditukar dengan jumlah uang tersebut adalah</p>
+            </div>
+            <CustomButton onClick={contohSoalHandle}>Iya</CustomButton>
           </Paper>
         </div>
       </Box>
