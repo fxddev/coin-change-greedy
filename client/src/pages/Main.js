@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { useButton } from '@mui/base/ButtonUnstyled';
 import { styled } from '@mui/system';
+import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios'
 
 import '../assets/css/Main.css'
@@ -75,6 +76,7 @@ export default function Main() {
   const [coinKandidatFix, setCoinKandidatFix] = React.useState([]);
   const [msgCoinKandidat, setMsgCoinKandidat] = React.useState('');
   const [statusMsgCoinKandidatAman, setStatusMsgCoinKandidatAman] = React.useState(true);
+  const [isLoading, setIsLoading] = React.useState(false)
 
 
   function handleCoinKandidat(e) {
@@ -138,6 +140,7 @@ export default function Main() {
   }
 
   function CoinChangeHandle(x, y) {
+    setIsLoading(true)
     console.log('coinAwal')
     console.log(coinAwal)
     // console.log('coinKandidat')
@@ -169,10 +172,12 @@ export default function Main() {
         // Do somthing
         // console.log(result)
         console.log(result.data)
+        setIsLoading(false)
       })
       .catch((err) => {
         // Do somthing
         console.log(err)
+        setIsLoading(false)
       })
 
   }
@@ -223,12 +228,21 @@ export default function Main() {
                 />
               }
 
-
               {coinAwal && coinKandidat && statusMsgCoinKandidatAman ?
-                <CustomButton onClick={CoinChangeHandle}>Gasss</CustomButton>
+                <CustomButton onClick={CoinChangeHandle}>
+
+                  {isLoading ?
+                    <CircularProgress className='circular_progres' />
+                    :
+                    'Gasss'
+                  }
+
+                </CustomButton>
                 :
                 <CustomButton disabled>Gasss</CustomButton>
               }
+
+
             </div>
           </Paper>
           <Paper elevation={6} className='_paper'>

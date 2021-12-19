@@ -29,6 +29,11 @@
     flex-direction: column;
 }
 
+.box_content .side_left .circular_progres{ 
+    width: 17px !important;
+    height: 17px !important;
+}
+
 .box_content .side_right{ 
     display: flex;
     gap: 20px;
