@@ -222,11 +222,9 @@ export default function Main() {
         <div className='side_right'>
           <Paper elevation={6} className='_paper'>
             <h3>Nemu soal kek gini?</h3>
-            <div classNane='contoh_soal'>
-              <p>Terdapat lembaran uang sebesar 100.000, 50.000, 10.000, 5000, 2500, akan ditukar dengan
-                uang yang jumlahnya 150.000. Jika menggunakan algoritnna Greedy maka banyaknya
-                lembaran yang harus ditukar dengan jumlah uang tersebut adalah</p>
-            </div>
+            <p>Terdapat lembaran uang sebesar 100.000, 50.000, 10.000, 5000, 2500, akan ditukar dengan
+              uang yang jumlahnya 150.000. Jika menggunakan algoritnna Greedy maka banyaknya
+              lembaran yang harus ditukar dengan jumlah uang tersebut adalah</p>
             <CustomButton onClick={contohSoalHandle}>Iya</CustomButton>
           </Paper>
         </div>
