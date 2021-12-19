@@ -71,16 +71,18 @@ CustomButton.propTypes = {
 export default function Main() {
 
   const [coinAwal, setCoinAwal] = React.useState();
-  const [coinKandidat, setCoinKandidat] = React.useState();
+  const [coinKandidat, setCoinKandidat] = React.useState([]);
+  const [coinKandidatFix, setCoinKandidatFix] = React.useState([]);
   const [msgCoinKandidat, setMsgCoinKandidat] = React.useState('');
   const [statusMsgCoinKandidatAman, setStatusMsgCoinKandidatAman] = React.useState(true);
 
+
   function handleCoinKandidat(e) {
-    setCoinKandidat(e.target.value)
     console.log('isi koin kanddidat saat ini adlh')
     console.log(e.target.value)
 
     let coin_kandidat = e.target.value
+    setCoinKandidat(coin_kandidat)
     let array_string = []
     array_string = coin_kandidat.split(/[ ,]+/);
     console.log('array_string')
@@ -88,7 +90,7 @@ export default function Main() {
     // console.log(array_string.length)
 
     let array_int = []
-    let array_salah = []
+    // let array_salah = []
     for (let index = 0; index < array_string.length; index++) {
 
       console.log('array_string[index]')
@@ -99,7 +101,7 @@ export default function Main() {
         if (isNaN(convert_to_int)) {
           // console.log(`${array_string[index]} bukan angka`)
 
-          array_salah.push(array_string[index])
+          // array_salah.push(array_string[index])
           setMsgCoinKandidat(`${array_string[index]} bukan angka`)
           setStatusMsgCoinKandidatAman(false)
           break;
@@ -129,20 +131,32 @@ export default function Main() {
       }
 
     }
+    console.log('array_int')
     console.log(array_int)
+
+    setCoinKandidatFix(array_int)
   }
 
-  function CoinChangeHandle() {
-    // console.log('coinAwal')
-    // console.log(coinAwal)
+  function CoinChangeHandle(x, y) {
+    console.log('coinAwal')
+    console.log(coinAwal)
     // console.log('coinKandidat')
     // console.log(coinKandidat)    
 
-    const url = 'https://8000-red-kingfisher-lubl4cjs.ws-us23.gitpod.io/coin-change'
+    console.log('msgCoinKandidatFix')
+    console.log(coinKandidatFix)
+
+    const base_uri = 'https://8000-red-chicken-2fpq1yaa.ws-us23.gitpod.io'
+    const url = `${base_uri}/coin-change`
 
     const params = new URLSearchParams()
-    params.append('coin_awal', coinAwal)
-    params.append('coin_kandidat', coinKandidat)
+    if (x && y) {
+      params.append('coin_awal', x)
+      params.append('coin_kandidat', y)
+    } else {
+      params.append('coin_awal', coinAwal)
+      params.append('coin_kandidat', coinKandidatFix)
+    }
 
     const config = {
       headers: {
@@ -163,8 +177,11 @@ export default function Main() {
 
   }
 
-  function contohSoalHandle() {
+  async function contohSoalHandle() {
+    await setCoinAwal(150000)
+    await setCoinKandidat('100000 50000 10000 5000 2500')
 
+    CoinChangeHandle(150000, [100000, 50000, 10000, 5000, 2500])
   }
 
   return (
