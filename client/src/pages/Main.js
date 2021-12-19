@@ -139,6 +139,9 @@ export default function Main() {
     setCoinKandidatFix(array_int)
   }
 
+  const [jawaban, setJawaban] = React.useState([]);
+  const [jwbCoinKandidat, setJwbCoinKandidat] = React.useState('');
+  const [jwbSolusi, setJwbSolusi] = React.useState('');
   function CoinChangeHandle(x, y) {
     setIsLoading(true)
     console.log('coinAwal')
@@ -167,11 +170,30 @@ export default function Main() {
       }
     }
 
+
     axios.post(url, params, config)
       .then((result) => {
         // Do somthing
         // console.log(result)
         console.log(result.data)
+        setJawaban([result.data])
+        // console.log(result.data.coin_kandidat)
+        setJwbCoinKandidat(result.data.coin_kandidat)
+
+        let coin_kandidat_string = ''
+        for (let index = 0; index < result.data.coin_kandidat.length; index++) {
+          // console.log(result.data.coin_kandidat[index])
+          coin_kandidat_string += `${result.data.coin_kandidat[index]} `
+        }
+        // console.log(coin_kandidat_string)
+        setJwbCoinKandidat(coin_kandidat_string)
+
+        let solusi_string = ''
+        for (let j = 0; j < result.data.solusi.length; j++) {
+          solusi_string += `${result.data.solusi[j]} `
+        }
+        setJwbSolusi(solusi_string)
+
         setIsLoading(false)
       })
       .catch((err) => {
@@ -198,7 +220,7 @@ export default function Main() {
             <div className='_form'>
               <TextField
                 id="outlined-number"
-                label="Uang Yang ingin Ditukar?"
+                label="Coin Yang ingin Ditukar?"
                 type="number"
                 InputLabelProps={{
                   shrink: true,
@@ -252,11 +274,25 @@ export default function Main() {
 
         <div className='side_right'>
           <Paper elevation={6} className='_paper'>
-            <h3>Nemu soal kek gini?</h3>
-            <p>Terdapat lembaran uang sebesar 100.000, 50.000, 10.000, 5000, 2500, akan ditukar dengan
-              uang yang jumlahnya 150.000. Jika menggunakan algoritnna Greedy maka banyaknya
-              lembaran yang harus ditukar dengan jumlah uang tersebut adalah</p>
-            <CustomButton onClick={contohSoalHandle}>Iya</CustomButton>
+            {jawaban.length !== 0 ?
+
+              jawaban.map((jwb, index) => (
+                <>
+                  <p key={index}>Coin Yang Ditukar: {jwb.coin_awal}</p>
+                  <p key={index}>Kandidat Coin: {jwbCoinKandidat}</p>
+                  <p key={index}>Solusi Greedy: {jwbSolusi}</p>
+                </>
+              ))
+
+              :
+              <>
+                <h3>Nemu soal kek gini?</h3>
+                <p>Terdapat lembaran uang sebesar 100.000, 50.000, 10.000, 5000, 2500, akan ditukar dengan
+                  uang yang jumlahnya 150.000. Jika menggunakan algoritnna Greedy maka banyaknya
+                  lembaran yang harus ditukar dengan jumlah uang tersebut adalah</p>
+                <CustomButton onClick={contohSoalHandle}>Iya</CustomButton>
+              </>
+            }
           </Paper>
         </div>
       </Box>
